@@ -32,13 +32,33 @@
             return number.ToString("#,##0");
         }
 
-        public static long Parse(string number)
+         public static string Add(string number)
         {
-            if (string.IsNullOrWhiteSpace(number))
+            string NonCommas=number.Replace(",", "");
+            long num;
+            if (string.IsNullOrWhiteSpace(NonCommas))
             {
-                throw new System.ArgumentException($"'{nameof(number)}' cannot be null or whitespace", nameof(number));
+                throw new System.ArgumentException($"'{nameof(NonCommas)}' cannot be null or whitespace", nameof(NonCommas));
             }
-            return long.Parse(number.Replace(",", ""));
+            if (!long.TryParse(NonCommas,out num))
+            {
+                throw new System.ArgumentException($"'{nameof(NonCommas)}' cannot be Char", nameof(NonCommas));
+            }
+            return num.ToString("#,##0");
+        }
+        
+        public static long Remove(string number)
+        {
+            string NonCommas=number.Replace(",", "");
+            if (string.IsNullOrWhiteSpace(NonCommas))
+            {
+                throw new System.ArgumentException($"'{nameof(NonCommas)}' cannot be null or whitespace", nameof(NonCommas));
+            }
+            if (!long.TryParse(NonCommas,out _))
+            {
+                throw new System.ArgumentException($"'{nameof(NonCommas)}' cannot be Char", nameof(NonCommas));
+            }
+            return long.Parse(NonCommas);
         }
     }
 }
